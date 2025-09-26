@@ -2,11 +2,11 @@
 
 
 @section('kontens')
-<h1 class="mt-4">Produk</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
-    <li class="breadcrumb-item active">Daftar Kategori</li>
-</ol>
+    <h1 class="mt-4">Produk</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+        <li class="breadcrumb-item active">Daftar Kategori</li>
+    </ol>
 
     @if (session('status'))
         <div class="alert alert-success alert-dismissible fade show">
@@ -16,12 +16,11 @@
     @endif
 
     @if (session('ubah'))
-    <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Success!</strong> Berhasil edit data
-    </div>
-
-@endif
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> Berhasil edit data
+        </div>
+    @endif
 
 
     <div class="modal" id="myModal_Update" tabindex="-1">
@@ -32,7 +31,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-right">
-                <input type="submit" onclick="tambahData()" value="Tambah Produk" class="btn btn-primary btn-sm"
+                <input type="submit" onclick="tambahData()" value="Tambah Kategori" class="btn btn-primary btn-sm"
                     id="InputKategori" data-toggle="modal" data-target="#add_data_Modal">
             </div>
         </div>
@@ -66,16 +65,11 @@
                                 <a href="#myModal_Update" class="btn btn-primary" data-toggle="modal"
                                     onclick="getUpdate({{ $kategori->id }})">Edit</a>
 
-                                {{-- <form action="{{ route('categories.destroy', $kategori->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-
+                                @if (auth()->user()->roles_id == 4)
                                     <input type="submit" value="delete" class="btn btn-danger"
-                                        onclick="if(!confirm('are you sure to delete this ??')) return false">
-                                </form> --}}
+                                        onclick="delete2({{ $kategori->id }})">
+                                @endif
 
-                                <input type="submit" value="delete" class="btn btn-danger"
-                                    onclick="delete2({{ $kategori->id }})">
                             </td>
 
                         </tr>

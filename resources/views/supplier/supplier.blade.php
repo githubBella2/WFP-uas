@@ -97,14 +97,18 @@
                             <td> <a href="#myModal_Update" class="btn btn-primary" data-toggle="modal"
                                     onclick="getUpdate({{ $by->id }})">Edit</a>
 
-                                <form action="{{ route('supplier.destroy', $by->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
+                                @if (auth()->user()->roles_id == 4)
+                                    <form action="{{ route('supplier.destroy', $by->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
 
-                                    <input type="submit" value="delete" class="btn btn-danger"
-                                        onclick="if(!confirm('are you sure to delete this ??')) return false">
+                                        <input type="submit" value="delete" class="btn btn-danger"
+                                            onclick="if(!confirm('are you sure to delete this ??')) return false">
 
-                                </form>
+                                    </form>
+                                @endif
+
+
                             </td>
 
 

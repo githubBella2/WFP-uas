@@ -29,9 +29,15 @@
                 <div class="form-group">
                     <label class="small mb-1" for="Description">Description</label>
                     <input name="description" value="{{ $pr->description }}" class="form-control py-4" id="Description2" aria-describedby="emailHelp" placeholder="Enter Description">
-                </div>                    
+                </div>   
+                <div class="form-group">
+                    <label class="small mb-1" for="harga">Harga</label>
+                    <input name="harga" value="{{ $pr->harga }}" class="form-control py-4" id="harga"
+                        aria-describedby="emailHelp" placeholder="Enter Price">
+                </div>
+
                  <div class="form-group">
-                     <label class="small mb-1" for="kategori">kategori</label>
+                     <label class="small mb-1" for="kategori">Kategori</label>
                         <select class="form-control py-4" name="kategori" id="kategori2" style="width: 100%;">
                             @foreach($kt as $kategori)
                             <option value="{{ $kategori ->  id }}">{{ $kategori -> nama }}</option>

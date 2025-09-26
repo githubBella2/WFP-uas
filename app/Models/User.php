@@ -22,8 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'roles_id',
-        'members_id'
-
+        'members_id',
+        'cart_member_id'
     ];
 
     /**
@@ -51,5 +51,9 @@ class User extends Authenticatable
 
     public function member(){
         return $this->belongsTo(member::class , 'members_id');
+    }
+
+    public function cart_member(){
+        return $this->belongsTo(cart_member::class , 'cart_member_id');
     }
 }

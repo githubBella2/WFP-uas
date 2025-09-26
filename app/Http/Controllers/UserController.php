@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\card_member;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,19 @@ class UserController extends Controller
     public function index()
     {
         //
+        if (auth()->user()->roles_id != 3) {
 
-        $buyer = User::all()->where('roles_id' , 3);
-        return view('buyer.buyer' , ['data'=> $buyer]);
+            $buyer = User::all()->where('roles_id' , 3);
+
+            return view('buyer.buyer' , ['data'=> $buyer]);
+        }
+        else{
+
+            $user = User::find(auth()->user()->id);
+            $cart_member = card_member::find($user->cart_member_id);
+            return view('catalog.profile' , ['data'=> $user , 'cm'=>$cart_member]);
+        }
+
     }
 
     /**

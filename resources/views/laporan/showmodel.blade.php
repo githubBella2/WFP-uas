@@ -23,6 +23,7 @@
                               <th>Kategori</th>
                               <th>Quantity</th>
                               <th>Price</th>
+                              <th>Total</th>
                             </tr>
                           @foreach($md as $medicine)
                             <tr>
@@ -33,12 +34,11 @@
                                     
                                 @endif
                             @endforeach
-                            <td>{{ $medicine->quantity }}</td>
-                            <td>{{ $medicine->price }}</td>
+                            <td>{{ $medicine->jumlah }}</td>
+                            <td>{{ $medicine->harga }}</td>
+                            <td>{{ $medicine->harga * $medicine->jumlah }}</td>
                             </tr>
                           @endforeach
-
-
                         </table>
 
                       </div>

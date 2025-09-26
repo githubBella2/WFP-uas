@@ -31,7 +31,10 @@
                         <th>Nama</th>
                         <th>Member Status</th>
                         <th>Tanggal Di Tambahkan</th>
-                        <th>Action</th>
+                        @if (auth()->user()->roles_id == 4)
+                            <th>Action</th>
+                        @endif
+
                     </tr>
                 </thead>
                 <tfoot>
@@ -40,7 +43,10 @@
                         <th>Nama</th>
                         <th>Member Status</th>
                         <th>Tanggal Di Tambahkan</th>
-                        <th>Action</th>
+                        @if (auth()->user()->roles_id == 4)
+                            <th>Action</th>
+                        @endif
+
 
                     </tr>
                 </tfoot>
@@ -53,20 +59,24 @@
                             <td>{{ $by->name }}</td>
                             <td>{{ $by->member->status }}</td>
                             <td>{{ $by->created_at }}</td>
-                            <td> <a href="#myModal_Update" class="btn btn-primary" data-toggle="modal"
-                                    onclick="getUpdate({{ $by->id }})">Edit</a>
+
+                            @if (auth()->user()->roles_id == 4)
+                                <td> <a href="#myModal_Update" class="btn btn-primary" data-toggle="modal"
+                                        onclick="getUpdate({{ $by->id }})">Edit</a>
 
                                     <form action="{{ route('buyer.destroy', $by->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-    
+
                                         <input type="submit" value="delete" class="btn btn-danger"
                                             onclick="if(!confirm('are you sure to delete this ??')) return false">
-    
+
                                     </form>
                                 </td>
+                            @endif
 
-                            
+
+
                         </tr>
                     @endforeach
                 </tbody>

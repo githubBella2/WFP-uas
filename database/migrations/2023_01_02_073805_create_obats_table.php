@@ -18,8 +18,9 @@ class CreateObatsTable extends Migration
             $table->string('nama');
             $table->string('form');
             $table->string('restriction');
-            $table->string('description');
-            $table->string('img')->nullable();;
+            $table->string('description')->nullable();
+            $table->string('harga');
+            $table->string('img')->nullable();
             $table->bigInteger('kategoris_id')->unsigned();
             $table->bigInteger('suppliers_id')->unsigned();
             $table->timestamps();

@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $arr = ['Pemilik', 'Pegawai', 'Pembeli'];
+        $arr = ['Pemilik', 'Pegawai', 'Pembeli', 'Admin'];
         foreach($arr as $c) {
             DB::table('roles')->insert([
                 'nama'=>$c

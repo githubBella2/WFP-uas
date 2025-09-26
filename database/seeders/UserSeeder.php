@@ -20,16 +20,27 @@ class UserSeeder extends Seeder
                 'name'=> 'Ega',
                 'email' => 'ega@gmail.com',
                 'password'=>'$2y$10$Yf8ZVh34Wm6iMG5gGXThmuqipqUE8myHqA/a2acEQZ728Ftgcqw6W',
-                'roles_id'=>rand(1,3),
-                'members_id'=>1
+                'roles_id'=> 4,
+                'members_id'=>1,
+                'cart_member_id'=>null
             ],
             [
                 'name'=> 'joni',
                 'email' => 'joni@gmail.com',
                 'password'=>'$2y$10$lDdriZkViK7dZ.x.4DOt7eV4H5OD50WnHc1MNqrz.7seawF8.jNfO',
                 'roles_id'=>rand(1,3),
-                'members_id'=>2
-            ]
+                'members_id'=>2,
+                'cart_member_id'=>null
+            ],
+            [
+                'name'=> 'wahyu',
+                'email' => 'wahyu@gmail.com',
+                'password'=>'$2y$10$Yf8ZVh34Wm6iMG5gGXThmuqipqUE8myHqA/a2acEQZ728Ftgcqw6W',
+                'roles_id'=> 3,
+                'members_id'=>1,
+                'cart_member_id'=>1
+            ],
+
         ]);
     }
 }

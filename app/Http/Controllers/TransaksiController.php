@@ -18,8 +18,16 @@ class TransaksiController extends Controller
     public function index()
     {
         //
-        $data = transaksi::all();
-        return view('laporan.penjualan' , compact('data'));
+        // return view('laporan.penjualan' , compact('data'));
+        $user_id = auth()->user()->id;
+
+        if (auth()->user()->roles_id != 3) {
+            $data = transaksi::all();
+            return view('laporan.penjualan' , compact('data'));
+        } else {
+            $data = transaksi::orderBy('id', 'DESC')->where('users_id' , $user_id)->get();
+            return view('catalog.pembelian' , compact('data'));
+        }
     }
 
     /**

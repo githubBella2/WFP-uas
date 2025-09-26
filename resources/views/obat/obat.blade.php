@@ -1,11 +1,11 @@
 @extends('tamplate')
 
 @section('kontens')
-<h1 class="mt-4">Produk</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
-    <li class="breadcrumb-item active">Daftar Obat</li>
-</ol>
+    <h1 class="mt-4">Produk</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/home">Dashboard</a></li>
+        <li class="breadcrumb-item active">Daftar Obat</li>
+    </ol>
 
     @if (session('status'))
         <div class="alert alert-success alert-dismissible fade show">
@@ -14,10 +14,10 @@
         </div>
     @endif
     @if (session('ubah'))
-    <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Success!</strong> Berhasil edit data
-    </div>
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> Berhasil edit data
+        </div>
     @endif
 
     <div class="container">
@@ -57,15 +57,27 @@
                             <input name="restriction" class="form-control py-4" id="restriction"
                                 aria-describedby="emailHelp" placeholder="Enter Restriction">
                         </div>
-                    
+
                         <div class="form-group">
-                            <label class="small mb-1" for="kategori">kategori</label>
+                            <label class="small mb-1" for="description">Description</label>
+                            <input name="description" class="form-control py-4" id="description"
+                                aria-describedby="emailHelp" placeholder="Enter Description">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="small mb-1" for="harga">Harga</label>
+                            <input name="harga" class="form-control py-4" id="harga" aria-describedby="emailHelp"
+                                placeholder="Enter Price">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="small mb-1" for="kategori">Kategori</label>
                             <select class="form-control py-4" name="kategori" id="kategori" style="width: 100%;">
                                 @foreach ($kt as $kategori)
                                     <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
                                 @endforeach
                             </select>
-                            
+
                         </div>
 
                         <div class="form-group">
@@ -75,14 +87,15 @@
                                     <option value="{{ $suppliers->id }}">{{ $suppliers->nama }}</option>
                                 @endforeach
                             </select>
-                            
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type ="file" name="image" class="form-control py-4" id="image" multiple style="height:90px;">
+
                         </div>
 
-                        
+                        <div class="form-group">
+                            <input type="file" name="image" class="form-control py-4" id="image" multiple
+                                style="height:90px;">
+                        </div>
+
+
                 </div>
 
                 <!-- FOOTER -->
@@ -116,11 +129,16 @@
                         <th>Nama </th>
                         <th>Form</th>
                         <th>Restriction</th>
+                        <th>Harga</th>
                         <th>image</th>
                         <th>Category</th>
                         <th>Action</th>
-                        <th>Action2</th>
-                        <th>Action3</th>
+
+                        @if (auth()->user()->roles_id == 4)
+                            <th>Action2</th>
+                            <th>Action3</th>
+                        @endif
+
 
                     </tr>
                 </thead>
@@ -130,11 +148,15 @@
                         <th>Nama </th>
                         <th>Form</th>
                         <th>Restriction</th>
+                        <th>Harga</th>
                         <th>image</th>
                         <th>Category</th>
                         <th>Action</th>
-                        <th>Action2</th>
-                        <th>Action3</th>
+                        @if (auth()->user()->roles_id == 4)
+                            <th>Action2</th>
+                            <th>Action3</th>
+                        @endif
+
                     </tr>
                 </tfoot>
                 <tbody>
@@ -144,25 +166,34 @@
                             <td id="td_nama{{ $productData->nama }}">{{ $productData->nama }}</td>
                             <td id="td_form{{ $productData->form }}">{{ $productData->form }}</td>
                             <td id="td_restriction{{ $productData->restriction }}">{{ $productData->restriction }}</td>
-                            <td id="td_image{{ $productData->img }}"><img src="gambar/{{  $productData->img}}" alt="" height=100 width=100></img></td>
-                            <td id="td_category_id{{ $productData->kategoris_id }}">{{ $productData->kategori->nama }}</td>
+                            <td id="td_harga{{ $productData->harga }}">{{ $productData->harga }}</td>
+                            <td id="td_image{{ $productData->img }}"><img src="gambar/{{ $productData->img }}"
+                                    alt="" height=100 width=100></img></td>
+                            <td id="td_category_id{{ $productData->kategoris_id }}">{{ $productData->kategori->nama }}
+                            </td>
                             <td><a class="btn btn-primary" href="#myModal_{{ $productData->id }}"
                                     data-toggle="modal">show</a></td>
 
-                            <td><a href="#myModal_Update" class="btn btn-primary" data-toggle="modal"
-                                    onclick="getUpdate({{ $productData->id }})">Edit</a></td>
+                            @if (auth()->user()->roles_id == 4)
+                                <td><a href="#myModal_Update" class="btn btn-primary" data-toggle="modal"
+                                        onclick="getUpdate({{ $productData->id }})">Edit</a></td>
 
-                            <td><a href="{{ route('obat.destroy', $productData->id) }}"></a>
 
-                                <form action="{{ route('obat.destroy', $productData->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
 
-                                    <input type="submit" value="delete" class="btn btn-danger"
-                                        onclick="if(!confirm('are you sure to delete this ??')) return false">
+                                <td><a href="{{ route('obat.destroy', $productData->id) }}"></a>
 
-                                </form>
-                            </td>
+                                    <form action="{{ route('obat.destroy', $productData->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <input type="submit" value="delete" class="btn btn-danger"
+                                            onclick="if(!confirm('are you sure to delete this ??')) return false">
+
+                                    </form>
+                                </td>
+                            @endif
+
+
 
                             {{-- MODEL --}}
 
@@ -182,7 +213,7 @@
                                             <p>Nama Obat : {{ $productData->nama }}</p>
                                             <p>Form :{{ $productData->form }}</p>
                                             <p>Restriction : {{ $productData->restriction }}</p>
-                                            <p>image : <img src="gambar/{{$productData->img }}" alt=""></p>
+                                            <p>image : <img src="gambar/{{ $productData->img }}" alt=""></p>
                                         </div>
 
                                         <!-- Modal footer -->
@@ -217,14 +248,14 @@
             $.ajax({
 
                 type: 'GET',
-                url: '{{ route('obat.edit' , 'id') }}',
+                url: '{{ route('obat.edit', 'id') }}',
                 data: {
                     id
                 },
                 success: function(data) {
                     $("#myModal_Update").html(data.msg);
 
-                    
+
                     console.log(data);
                 }
             });
